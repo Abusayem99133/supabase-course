@@ -1,4 +1,5 @@
 import "./App.css";
+import SignUp from "./Signup";
 import TaskManagement from "./TaskManagement";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <>
       <div>
         <TaskManagement />
+        <SignUp />
       </div>
     </>
   );
