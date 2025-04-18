@@ -7,7 +7,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
-  const { session, signInUser } = UserAuth();
+  const { session, signInNewUser } = UserAuth();
   const navigate = useNavigate(); // ✅ for redirecting
   console.log(session);
   console.log(email, password);
@@ -16,7 +16,7 @@ const SignIn = () => {
     setLoading();
 
     try {
-      const result = await signInUser(email, password);
+      const result = await signInNewUser(email, password);
       if (result?.success) {
         console.log("✅ Login success: ami sayem entry korlam");
         navigate("/"); // ✅ go to task page

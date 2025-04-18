@@ -49,7 +49,7 @@ export const AuthContextProvider = ({ children }) => {
     const { error } = supabase.auth.signOut();
 
     if (error) {
-      console.log("there was an error:", error);
+      console.error("there was an error:", error);
     }
   };
   return (

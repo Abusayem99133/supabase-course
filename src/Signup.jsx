@@ -1,27 +1,33 @@
 import { useState } from "react";
 import { UserAuth } from "./AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState(""); // 🛠️ safer default
   const [password, setPassword] = useState(""); // 🛠️ safer default
   const [error, setError] = useState("");
   const { session, signUpNewUser } = UserAuth();
-
+  const [loading, setLoading] = useState("");
+  const navigate = useNavigate();
+  console.log(session);
+  console.log(email, password);
   const handleSignUp = async (e) => {
     e.preventDefault();
-    setError(""); // reset previous error
+    setLoading(true);
 
     try {
       const result = await signUpNewUser(email, password);
       if (result?.success) {
         console.log("🎉 User signed up successfully!");
+        navigate("/");
       } else if (result?.error) {
         setError(result.error);
       }
     } catch (error) {
       console.error(error);
       setError("Unexpected error occurred!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,7 +52,7 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
           required // 🛠️ make input required
         />
-        <button type="submit" style={{ marginTop: "1rem" }}>
+        <button disabled={loading} type="submit" style={{ marginTop: "1rem" }}>
           Sign Up
         </button>
         {error && (
